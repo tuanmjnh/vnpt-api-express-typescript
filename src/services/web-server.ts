@@ -1,11 +1,12 @@
 import http from "http";
 import express from "express";
 import compression from "compression";  // compresses requests
-import session from "express-session";
+// import session from "express-session";
+import cookieSession from "cookie-session";
+// import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 // import logger from "../util/logger";
 import lusca from "lusca";
-import dotenv from "dotenv";
 // import mongo from "connect-mongo";
 import flash from "express-flash";
 import path from "path";
@@ -21,9 +22,6 @@ import router from "./router";
 // import { MONGODB_URI, SESSION_SECRET } from "../util/secrets";
 import localIP from "../util/local-ip";
 // const MongoStore = mongo(session);
-
-// Load environment variables from .env file, where API keys and passwords are configured
-dotenv.config({ path: ".env" });
 
 let httpServer: any;
 
@@ -70,14 +68,22 @@ export function initialize() {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
     // app.use(expressValidator());
-    app.use(session({
-      resave: true,
-      saveUninitialized: true,
-      secret: process.env.SESSION_SECRET,
-      // store: new MongoStore({
-      //   url: mongoUrl,
-      //   autoReconnect: true
-      // })
+    // app.use(express.cookieParser());
+    // app.use(session({
+    // app.use(session({
+    //   resave: true,
+    //   saveUninitialized: true,
+    //   secret: process.env.SESSION_SECRET,
+    //   // store: new MongoStore({
+    //   //   url: mongoUrl,
+    //   //   autoReconnect: true
+    //   // })
+    // }));
+    app.use(cookieSession({
+      name: "session",
+      keys: [process.env.SESSION_SECRET],
+      // Cookie Options
+      maxAge: 24 * 60 * 60 * 1000 // 24 hours
     }));
     // app.use(passport.initialize());
     // app.use(passport.session());
@@ -111,9 +117,10 @@ export function initialize() {
      * Primary app routes.
      */
     /* GET home page. */
-    app.get(process.env.BASE_URL, function (req, res, next) {
+    app.get(process.env.BASE_URL, function (req, res, next) { // process.env.BASE_URL
       // res.render('index', { title: 'Express' });
-      res.end("Express Server Portal api", { title: "Express" } as any);
+      res.end("Server Portal api"); // , { title: "Express" } as any);
+      // res.end(process.env.NODE_ENV);
     });
     // Mount the router at /api so all its routes start with /api
     app.use(`${process.env.BASE_URL}api`, router);
@@ -148,6 +155,7 @@ export function initialize() {
     // app.get("/auth/facebook/callback", passport.authenticate("facebook", { failureRedirect: "/login" }), (req, res) => {
     //   res.redirect(req.session.returnTo || "/");
     // });
+    process.env.PORT = process.env.PORT || "8000";
     httpServer
       .listen(process.env.PORT)
       .on("listening", () => {

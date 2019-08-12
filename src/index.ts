@@ -1,13 +1,19 @@
+import dotenv from "dotenv";
 import * as webServer from "./services/web-server";
 import * as oracleDB from "./services/oracle";
 import oracleConfig from "./config/oracle";
 
-// import path from "path";
-process.env.ROOT = __dirname; // Root path
+// Load environment variables from .env file, where API keys and passwords are configured
 
 if (process.env.NODE_ENV !== "production") {
-  process.env.BASE_URL = "/";
+  process.env.NODE_ENV = "development";
+  dotenv.config({ path: ".env.development" });
+} else {
+  dotenv.config({ path: ".env" });
 }
+
+// import path from "path";
+process.env.ROOT = __dirname; // Root path
 
 const defaultThreadPoolSize = 4;
 

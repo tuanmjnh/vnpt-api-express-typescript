@@ -114,21 +114,21 @@ export default {
     } catch (err) {
       next(err);
     }
-  },
-  delete: async function (req: Request, res: Response, next: NextFunction) {
-    try {
-      if (req.params.id) {
-        const result = await dbapi.delete(req.params.id);
-        if (result) {
-          res.status(200).json(result).end();
-        } else {
-          res.status(404).json({ msg: "exist", params: "data" }).end();
-        }
-      } else {
-        res.status(404).json({ msg: "exist", params: "id" }).end();
-      }
-    } catch (err) {
-      next(err);
-    }
   }
+  // delete: async function (req: Request, res: Response, next: NextFunction) {
+  //   try {
+  //     if (req.params.id) {
+  //       const result = await dbapi.delete(req.params.id);
+  //       if (result) {
+  //         res.status(200).json(result).end();
+  //       } else {
+  //         res.status(404).json({ msg: "exist", params: "data" }).end();
+  //       }
+  //     } else {
+  //       res.status(404).json({ msg: "exist", params: "id" }).end();
+  //     }
+  //   } catch (err) {
+  //     next(err);
+  //   }
+  // }
 };

@@ -5,7 +5,9 @@
     "target": "es6",
     "noImplicitAny": true,
     "moduleResolution": "node",
+    "removeComments": true,
     "sourceMap": true,
+    // "rootDir": "vnpt-express-typescript",
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {

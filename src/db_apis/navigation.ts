@@ -89,12 +89,12 @@ export default {
       binds = undefined;
     }
     return binds;
-  },
-  delete: async function (id: any) {
-    const result = await db
-      .knex(model.Table)
-      .where(model.Key, id)
-      .del();
-    return result;
   }
+  // delete: async function (id: any) {
+  //   const result = await db
+  //     .knex(model.Table)
+  //     .where(model.Key, id)
+  //     .del();
+  //   return result;
+  // }
 };

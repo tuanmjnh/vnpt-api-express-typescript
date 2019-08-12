@@ -1,5 +1,5 @@
 import oracledb from "oracledb";
-import oracleConfig from "../config/oracle.js";
+import oracleConfig from "../config/oracle";
 //
 // oracledb.maxRows = 10000;
 
@@ -174,16 +174,16 @@ export function doClose(connection: any, resultSet: any) {
 }
 
 // knex
-export const knex = require("knex")({
-  client: "oracledb",
-  connection: {
-    host: oracleConfig.dulieubkn_knex.host,
-    user: oracleConfig.dulieubkn_knex.user,
-    password: oracleConfig.dulieubkn_knex.password,
-    database: oracleConfig.dulieubkn_knex.database
-  },
-  pool: oracleConfig.dulieubkn_knex.pool
-});
+// export const knex = require("knex")({
+//   client: "oracledb",
+//   connection: {
+//     host: oracleConfig.dulieubkn_knex.host,
+//     user: oracleConfig.dulieubkn_knex.user,
+//     password: oracleConfig.dulieubkn_knex.password,
+//     database: oracleConfig.dulieubkn_knex.database
+//   },
+//   pool: oracleConfig.dulieubkn_knex.pool
+// });
 
 // var knex = require("knex")({
 //   client: "oracledb",
