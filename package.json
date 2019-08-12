@@ -11,8 +11,8 @@
   "scripts": {
     "start": "npm run serve",
     "build:js": "npm run build-sass && npm run build-ts && npm run tslint && npm run copy-static-assets",
-    "serve": "node dist/index.js",
-    "watch-node": "nodemon dist/index.js",
+    "serve": "node dist/server.js",
+    "watch-node": "nodemon dist/server.js",
     "watch": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-sass\" \"npm run watch-ts\" \"npm run watch-node\"",
     "test": "jest --forceExit --coverage --verbose",
     "watch-test": "npm run test -- --watchAll",
@@ -24,7 +24,7 @@
     "copy-static-assets": "ts-node copyStaticAssets.ts",
     "debug": "npm run build && npm run watch-debug",
     "dev": "npm run build && npm run watch-debug",
-    "serve-debug": "nodemon --inspect dist/index.js",
+    "serve-debug": "nodemon --inspect dist/server.js",
     "watch-debug": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-sass\" \"npm run watch-ts\" \"npm run serve-debug\"",
     "build:prod": "concurrently \"cross-env webpack --mode production\"",
     "build": "concurrently \"webpack --mode production\""
